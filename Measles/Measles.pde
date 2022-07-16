@@ -51,13 +51,15 @@ void setup()
   xMeasle = width*4/16;
   yMeasle = height*5/16;
   measleDiameter = width*1/16; 
+  //
+  //light pink
+  fill(242,218,228);
+  ellipse(xFace, yFace, widthDiameterFace, heightDiameterFace);
+  //
 }//End setup
 //
 void draw() 
 {
-  //light pink
-  fill(242,218,228);
-  ellipse(xFace, yFace, widthDiameterFace, heightDiameterFace);
   //
   //brown
   fill(188,158,103);
