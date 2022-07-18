@@ -32,12 +32,12 @@ void setup()
   widthDiameterFace = smallerDimension;
   heightDiameterFace = smallerDimension;
   //
-  xCurlLeft = ;
-  yCurlLeft = ; 
-  xCurlRight = ; 
-  yCurlRight = ;
-  widthCurl = ; 
-  heightCurl = ;
+  //xCurlLeft = ;
+  //yCurlLeft = ; 
+  //xCurlRight = ; 
+  //yCurlRight = ;
+  //widthCurl = ; 
+  //heightCurl = ;
   //
   xScarf = width*1/6; 
   yScarf = height*7/8; 
@@ -85,6 +85,7 @@ void setup()
   color backgroundColour = ( nightMode==true ) ? color( random(255), random(255), random(255), 0 ) : color( random(255), random(255), random(255) ) ;//ternary operator, similar to IF-Else
   background( backgroundColour );
   fill(#DE9C22);
+  rect(xCenter-faceRadius, 0, 2*faceRadius, smallerDimension); //See x&Y Measles Random Positioning
   ellipse(xFace, yFace, widthDiameterFace, heightDiameterFace);
   //
 }//End setup
@@ -129,6 +130,7 @@ void draw()
   //
   xMeasle = random(xCenter-faceRadius, xCenter+faceRadius);
   yMeasle = random(smallerDimension); //if zero is first, then default
+  //rect(xCenter-faceRadius, 0, 2*faceRadius, smallerDimension); //working rect() is before FACE in setup
   fill(red);
   noStroke();
   measleDiameter = random(smallerDimension*1/75, smallerDimension*1/25);//smallerDimension*1/50
