@@ -3,7 +3,7 @@ float xFace, yFace, widthDiameterFace, heightDiameterFace, faceRadius, xCenter, 
 float xLeftEye, yLeftEye, xRightEye, yRightEye, eyeDiameter; 
 float xLeftPupil, yLeftPupil, eyeDiameterPupil, xRightPupil, yRightPupil;
 float xNoseBridge, yNoseBridge, xLeftNostril, yLeftNostril, xRightNostril, yRightNostril;
-float xLeftMouth, yLeftMouth, xRightMouth, yRightMouth;
+
 float xHat, yHat, hatWidth, hatHeight;
 float xRightHair, yRightHair, xLeftHair, yLeftHair, widthRect, heightRect;
 float xCurlLeft, yCurlLeft, xCurlRight, yCurlRight, widthCurl, heightCurl;
@@ -13,6 +13,11 @@ float xMeasle, yMeasle, measleDiameter;
 color resetWhite=#FFFFFF, red=#FF0000; //similar to int declaration
 color backgroundColour;
 Boolean nightMode=false;
+float picWidthAdjusted1, imageWidthRatio1=0.0, imageHeightRatio1=0.0, picHeightAdjusted1;
+float imageLargerDimension1, imageSmallerDimension1;
+float imageX1, imageY1, imageWidth1, imageHeight1;
+PImage pic1;
+Boolean widthLarger1=false, heightLarger1=false;
 //
 void setup()
 {
@@ -74,24 +79,55 @@ void setup()
   yLeftNostril = yCenter+smallerDimension*2/16;
   xRightNostril = xCenter+smallerDimension*1.5/16;
   yRightNostril = yLeftNostril;
-  //
-  xLeftMouth = xLeftEye;
-  yLeftMouth = yCenter+smallerDimension*1/4;
-  xRightMouth = xRightEye;
-  yRightMouth = yLeftMouth;
+ 
   //
   faceRadius = smallerDimension/2;
   //
   color backgroundColour = ( nightMode==true ) ? color( random(255), random(255), random(255), 0 ) : color( random(255), random(255), random(255) ) ;//ternary operator, similar to IF-Else
   background( backgroundColour );
-  fill(#DE9C22);
+  fill(#FFFFFF);
   rect(xCenter-faceRadius, 0, 2*faceRadius, smallerDimension); //See x&Y Measles Random Positioning
   ellipse(xFace, yFace, widthDiameterFace, heightDiameterFace);
+  //
+  pic1 = loadImage("../Images/mouth.png");//Dimensions: width 154, height 81
+  int picWidth1 = 154;
+  int picHeight1 = 81;
+  if ( picWidth1>=picHeight1 ) {//Image Dimension Comparison
+      //True if Landscape or Square
+      imageLargerDimension1 = picWidth1;
+      imageSmallerDimension1 = picHeight1;
+      widthLarger1 = true;
+    } else {
+      //False if Portrait
+      imageLargerDimension1 = picHeight1;
+      imageSmallerDimension1 = picWidth1;
+      heightLarger1 = true;  
+    }//End Image Dimension Comparison
+  println(imageSmallerDimension1, imageLargerDimension1, widthLarger1, heightLarger1); //Verify variables details
+  //
+  //Aspect Ratio
+  if ( widthLarger1 == true ) imageWidthRatio1 = imageLargerDimension1 / imageLargerDimension1;
+  if ( widthLarger1 == true ) imageHeightRatio1 = imageSmallerDimension1 / imageLargerDimension1;
+  if ( heightLarger1 == true ) imageWidthRatio1 = imageSmallerDimension1 / imageLargerDimension1;
+  if ( heightLarger1 == true ) imageHeightRatio1 = imageLargerDimension1 / imageLargerDimension1;
+  //
+  //Population of Rect()
+  imageX1 = width*1/4;
+  imageY1 = height*3/6;
+  imageWidth1 = width*5/10;
+  imageHeight1 = height*1/2;
+  //
+ //Adjusted Image Variables for Aspect Ratio: entire image will be smaller due to aspect ratio
+  picWidthAdjusted1 = imageWidth1 * imageWidthRatio1;
+  picHeightAdjusted1 = height * imageHeightRatio1;
+  println(imageX1, imageY1, picWidthAdjusted1, picHeightAdjusted1); //Note: println() also verifies decimal places, complier will truncate
   //
 }//End setup
 //
 void draw()
 {
+  image(pic1, imageX1, imageY1, picWidthAdjusted1, picHeightAdjusted1);
+  //
   ellipse(xCurlLeft, yCurlLeft, widthCurl, heightCurl);
   //
   ellipse(xCurlRight, yCurlRight, widthCurl, heightCurl);
@@ -125,7 +161,7 @@ void draw()
   //
   strokeCap(SQUARE); //ROUND (default), PROJECT
   strokeWeight(thack);
-  line(xLeftMouth, yLeftMouth, xRightMouth, yRightMouth);
+ 
   strokeWeight(1);//resets default
   //
   xMeasle = random(xCenter-faceRadius, xCenter+faceRadius);
@@ -148,14 +184,14 @@ void mousePressed() {
   if ( mouseButton == LEFT) {//Night Mode FALSE
   backgroundColour = color( random(255), random(255), random(255), 0 );
   background ( backgroundColour );
-  fill(#DE9C22);
+  fill(#FFFFFF);
   ellipse(xFace, yFace, widthDiameterFace, heightDiameterFace);
   } //End Left Mouse Button
   //
   if ( mouseButton == RIGHT) {//Night Mode TRUE
   backgroundColour = color( random(255), random(255), random(255), 0 );
   background ( backgroundColour );
-  fill(#DE9C22);
+  fill(#FFFFFF);
   ellipse(xFace, yFace, widthDiameterFace, heightDiameterFace);
   }//End Right Mouse Button
   //Note: Mouse WHEEL is also available
