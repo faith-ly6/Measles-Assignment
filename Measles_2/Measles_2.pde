@@ -81,7 +81,7 @@ void mousePressed() {
   } //End Left Mouse Button
   //
   if ( mouseButton == RIGHT) {//Night Mode TRUE
-  backgroundColour = color( random(255), random(255), random(255), 0 );
+  backgroundColour = color( random(255), random(255), random(0), 0 );
   background ( backgroundColour );
   fill(#F0BA27);
   ellipse(xFace, yFace, widthDiameterFace, heightDiameterFace);
